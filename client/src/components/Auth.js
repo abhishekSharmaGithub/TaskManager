@@ -27,7 +27,7 @@ const Auth = () => {
 
     const data = response.json();
     console.log(data);
-    
+
   }
 
   return (
@@ -37,9 +37,10 @@ const Auth = () => {
           <h2>
             {isLogin ? 'PLEASE LOG IN ' : 'PLEASE SIGN UP!'}
           </h2>
-          <input type="email" placeholder="email"/>
-          <input type = "password" placeholder="password"/>
-          {!isLogin && <input type="password" placeholder="confirm password"/>}
+          <input type="email" placeholder="email" onChange={(e)=>setEmail(e.target.value)}/>
+          <input type = "password" placeholder="password"
+          onChange={(e)=>setPassword(e.target.value)}/>
+          {!isLogin && <input type="password" placeholder="confirm password" onChange={(e)=>setConfirmPassword(e.target.value)}/>}
           <input type="submit" onClick={(e)=>handleSubmit(e,isLogin?'Login':'signup')} className='create'/>
           {error && <p>{error}</p>}
         </form>
