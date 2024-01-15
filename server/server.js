@@ -80,6 +80,33 @@ app.get('/todos/:userEmail', async (req, res) => {
         }
 
     })
+    app.post('/login',async(req,res)=>{
+        const {email,password} = req.body;
+
+        try{
+            const response = await pool.query(`SELECT * FROM users where email = $1`,[email])
+            if(!response.rows.length)
+            return res.json({detail:'USER Does not exist!'})
+        console.log('>>>>>>>>>>>>>"""""""""""""""""""":::::::',response.rows[0])
+
+            const success = await bcrypt.compare(password,response.rows[0].hashed_password)
+            const token = jwt.sign({email},'secret',{expiresIn:'1hr'}); 
+
+            if(success){
+            res.json({'email':response.rows[0].email,token})
+            }else{
+                res.json({detail:'Login error'})
+            }
+
+        }catch(err){
+            // if(err){
+            //     res.json({detail:err.detail})
+                console.error(err);
+
+            // }
+        }
+
+    })
 
 
 

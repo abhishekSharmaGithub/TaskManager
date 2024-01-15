@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import {useCookies} from 'react-cookie'
 
 const Auth = () => {
+  const [cookies, setCookie,removeCookie] = useCookies(null);
   const [isLogin,setIsLogin] = useState(true);
   const [error,setError] = useState(null);
   const [email,setEmail] = useState(null);
@@ -28,8 +30,14 @@ const Auth = () => {
     })
 
     const data = await response.json();
+    console.log(data);
     if(data.detail){
     setError(data.detail);
+    } else{
+      setCookie('Email',data.email)
+      setCookie('AuthToken',data.token)
+      window.location.reload()
+
     }
 
   }
@@ -45,7 +53,7 @@ const Auth = () => {
           <input type = "password" placeholder="password"
           onChange={(e)=>setPassword(e.target.value)}/>
           {!isLogin && <input type="password" placeholder="confirm password" onChange={(e)=>setConfirmPassword(e.target.value)}/>}
-          <input type="submit" onClick={(e)=>handleSubmit(e,isLogin?'Login':'signup')} className='create'/>
+          <input type="submit" onClick={(e)=>handleSubmit(e,isLogin?'login':'signup')} className='create'/>
           {error && <p>{error}</p>}
         </form>
         <div className='auth-options'>

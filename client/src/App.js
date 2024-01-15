@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import ListHeader from './components/ListHeader';
 import ListItem from './components/ListItem';
 import Auth from './components/Auth';
+import { useCookies } from 'react-cookie';
 
 const App = () =>{
   const [tasks,setTasks] = useState(null)
-  const userEmail = 'abhishek@gmail.com'
-  const authToken = false;
+  const [cookies,SetCookie,removeCookie] = useCookies(null);
+  const userEmail = cookies.Email
+  const authToken = cookies.AuthToken;
   const getData = async () =>{
     try{
       const response = await fetch(`http://localhost:8001/todos/${userEmail}`);
