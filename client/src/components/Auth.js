@@ -7,6 +7,8 @@ const Auth = () => {
   const [password,setPassword] = useState(null);
   const [confirmpassword,setConfirmPassword] = useState(null);
 
+  console.log(email,password);
+
   const viewLogin = (status) => {
 
     setError(status);
@@ -25,8 +27,10 @@ const Auth = () => {
       body: JSON.stringify({email,password})
     })
 
-    const data = response.json();
-    console.log(data);
+    const data = await response.json();
+    if(data.detail){
+    setError(data.detail);
+    }
 
   }
 
