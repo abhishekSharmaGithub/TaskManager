@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ListHeader from './components/ListHeader';
 import ListItem from './components/ListItem';
 import Auth from './components/Auth';
-import { useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 
 const App = () =>{
   const [tasks,setTasks] = useState(null)
@@ -38,6 +38,9 @@ const App = () =>{
       {authToken && 
       <>
       <ListHeader listName={' 🏇🏻 To Do List '} task={tasks} getData={getData}/>
+      <div className='welcome-box'>
+      <p>{userEmail}</p>
+      </div>
       {sortedTasks?.map((task)=> <ListItem key = {task.id} task={task} getData={getData}/>)}
       </>
 }

@@ -24,9 +24,9 @@ const ListItem = ({task,getData}) => {
     <li className='listitem'>
       <div className='info-container'>
       <TickIcon/>
-      <p>{task.title}</p>
+      <p className='title'>{task.title}</p>
       {/* <p>{task.id}</p> */}
-      <ProgressBar/>
+      <ProgressBar progress={task.progress}/>
       </div>
       <div className='button-container'>
         <button className='edit' onClick={( ) => setShowModal(true)}>EDIT</button>
